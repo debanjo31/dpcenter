@@ -9,7 +9,7 @@ import authProvider from "./authProvider";
 import { supabaseClient } from "./utility";
 import Homepage from "./pages/homepage/Homepage";
 import Login from "./pages/auth/login/Login";
-import Logout from "./pages/auth/logout/Logout";
+import Register from "./pages/auth/register/Register";
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage/>}/> 
             <Route path="/login" element={<Login/>}/> 
-            <Route path="/login" element={<Logout/>}/> 
+            <Route path="/register" element={<Register/>}/> 
           </Routes>
 
           {/* <RefineKbar /> */}
