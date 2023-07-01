@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc"
 import { Link } from "react-router-dom"
 import { useLogin } from "@refinedev/core";
 import { useRegister } from "@refinedev/core";
+import { object, string, date,z } from 'zod'
 
 const Register = () => {
     const { mutate: register } = useRegister();
@@ -17,26 +18,48 @@ const Register = () => {
     
     const submitRegister = (e: any) => {
         e.preventDefault();
-        const values = {
+        // const values = {
+        //     email:email,
+        //     password:password
+        // }
+        const data = {
+            name:name,
             email:email,
-            password:password
         }
-        // console.log("gone");
-        
+        const postSchema = z.object({
+            name: z
+            .string()
+            .min(3, { message: "The username must be 4 characters or more" })
+            .max(10, { message: "The username must be 10 characters or less" }),
+            email: z.string()
+            .email().trim().max(150).min(5).toLowerCase(),
+        });
+        // const validateFormData = (data: unknown) => {
+        //     const isValidData = postSchema.parse(data);
+        //     return isValidData;
+        // };
+        try {
+            const dataNow = postSchema.parse(data)
+            console.log(dataNow);
+        } catch (error) {
+            console.log(error);
+            
+        }
+        // console.log(dataNow?.ZodError);
 
-        register(
-            values,
-            {
-                onSuccess: (data) => {
-                    if (!data.success) {
-                        // handle error
-                        console.log("eror");  
-                    }
-                    console.log(data);
-                    // handle success
-                },
-            },
-        );
+        // register(
+        //     values,
+        //     {
+        //         onSuccess: (data) => {
+        //             if (!data.success) {
+        //                 // handle error
+        //                 console.log("eror");  
+        //             }
+        //             console.log(data);
+        //             // handle success
+        //         },
+        //     },
+        // );
     };
 
     return (
