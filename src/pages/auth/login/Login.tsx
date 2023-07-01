@@ -74,7 +74,7 @@ const Login = () => {
                 {/* no account? signup */}
                 <div>
                     <label htmlFor="forget-password" className="text-sm text-slate-500">
-                        don't have an account? <Link to="/" className="text-orange-600 font-semibold underline">sign-up</Link>
+                        don't have an account? <Link to="/register" className="text-orange-600 font-semibold underline">sign-up</Link>
                     </label>
                 </div>
             </div>
