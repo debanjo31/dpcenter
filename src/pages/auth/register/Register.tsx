@@ -4,53 +4,41 @@ import { MdPassword, MdEmail } from "react-icons/md"
 import { FcGoogle } from "react-icons/fc"
 import { Link } from "react-router-dom"
 import { useRegister } from "@refinedev/core";
-import { object, string, date, z } from 'zod'
+import { z } from 'zod'
 import { useForm } from "@refinedev/react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// type postSchema = z.infer<typeof postSchema>;
-type postSchema = {
-    fullname: string;
-    email: string;
-    password: string;
-}
+
+const postSchema = z.object({
+    fullname: z
+        .string()
+        .min(3, { message: "The username must be 4 characters or more" })
+        .max(10, { message: "The username must be 10 characters or less" }),
+    email: z.string()
+        .email().trim().max(15).min(5).toLowerCase(),
+    password: z
+        .string()
+        .min(6, { message: "Password must be atleast 6 characters" }),
+    terms: z
+        .literal(true, {
+            errorMap: () => ({ message: "Accept our Terms and Conditions" }),
+        }),
+});
+type postSchema = z.infer<typeof postSchema>;
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     // const { mutate: register } = useRegister();
-    const postSchema = z.object({
-        fullname: z
-            .string()
-            .min(3, { message: "The username must be 4 characters or more" })
-            .max(10, { message: "The username must be 10 characters or less" }),
-        email: z.string()
-            .email().trim().max(15).min(5).toLowerCase(),
-        password: z
-            .string()
-            .min(6, { message: "Password must be atleast 6 characters" }),
-    });
-
     const {
         refineCore: { onFinish, formLoading, queryResult },
         register: collect,
         handleSubmit,
         resetField,
         formState: { errors },
-    } = useForm<postSchema>({  resolver: zodResolver(postSchema), });
+    } = useForm<postSchema>({ resolver: zodResolver(postSchema), });
 
-    const handleRegistration = (data: any) => {
-        // const postSchema = z.object({
-        //     name: z
-        //         .string()
-        //         .min(3, { message: "The username must be 4 characters or more" })
-        //         .max(10, { message: "The username must be 10 characters or less" }),
-        //     email: z.string()
-        //         .email().trim().max(150).min(5).toLowerCase(),
-        // });
-        // const dataNow = postSchema.safeParse(data)
-        // console.log(dataNow);
-        console.log(data);
-    }
+    const onSubmit = (data: (postSchema | unknown)) => console.log(data);
+
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
             <h1 className="text-2xl font-bold text-orange-600 mb-4">DP-Center</h1>
@@ -60,14 +48,14 @@ const Register = () => {
 
                 {/* signin form */}
                 <form action="login" method="post" className="flex flex-col gap-4"
-                    onSubmit={handleSubmit(handleRegistration)}
+                    onSubmit={handleSubmit(onSubmit)}
                 >
 
                     {/* email signin inputs */}
                     <div className="relative">
+                        <BsFillPersonFill className="text-slate-500 absolute top-3 right-2 text-xl" />
                         <input type="text" placeholder="Full-Name" className="border border-slate-400 w-full rounded p-2 outline-orange-400"
                             {...collect("fullname")} />
-                        <BsFillPersonFill className="text-slate-500 absolute top-3 right-2 text-xl" />
                         {errors.fullname && (
                             <p className="text-xs italic text-red-500 mt-2">
                                 {errors.fullname?.message}
@@ -76,10 +64,9 @@ const Register = () => {
 
                     </div>
                     <div className="relative">
+                        <MdEmail className="text-slate-500 absolute top-3 right-2 text-xl" />
                         <input type="email" placeholder="Email" className="border border-slate-400 w-full rounded p-2 outline-orange-400"
                             {...collect("email")} />
-                        <MdEmail className="text-slate-500 absolute top-3 right-2 text-xl" />
-
                         {errors.email && (
                             <p className="text-xs italic text-red-500 mt-2">
                                 {errors.email?.message}
@@ -87,17 +74,27 @@ const Register = () => {
                         )}
                     </div>
                     <div className="relative">
+                        <MdPassword className="text-slate-500 absolute top-3 right-2 text-xl cursor-pointer" onClick={() => setShowPassword(!showPassword)} />
                         <input type={showPassword ? "text" : "password"} placeholder="Password" className="border border-slate-400 w-full rounded p-2 outline-orange-400"
                             {...collect("password")} />
-
-                        <MdPassword className="text-slate-500 absolute top-3 right-2 text-xl cursor-pointer" onClick={() => setShowPassword(!showPassword)} />
+                        {errors.password && (
+                            <p className="text-xs italic text-red-500 mt-2">
+                                {errors.password?.message}
+                            </p>
+                        )}
                     </div>
 
                     {/* terms and conditions */}
-                    {/* <label htmlFor="forget-password" className="text-sm text-slate-500 flex gap-2">
-                        <input type="checkbox" name="term and conditions" value={checkbox} onClick={(e) => setCheckbox(!checkbox)} />
-                        I agree to all <Link to="/" className="font-medium text-orange-600">Terms & Conditions</Link>
-                    </label> */}
+                    <label htmlFor="terms and conditions" className="text-sm text-slate-500 flex flex-col">
+                        <span className="flex gap-2">
+                            <input type="checkbox" {...collect("terms")} />I agree to all <Link to="/" className="font-medium text-orange-600">Terms & Conditions</Link>
+                        </span>
+                        {errors.terms && (
+                            <p className="text-xs italic text-red-500 mt-2">
+                                {errors.terms?.message}
+                            </p>
+                        )}
+                    </label>
 
                     {/* login button */}
                     <button className={`bg-orange-600 text-white font-semibold text-sm py-2 rounded w-full hover:bg-orange-400 transition duration-300`} >
@@ -114,7 +111,7 @@ const Register = () => {
 
                 {/* no account? signup */}
                 <div>
-                    <label htmlFor="forget-password" className="text-sm text-slate-500">
+                    <label htmlFor="login" className="text-sm text-slate-500">
                         have an account? <Link to="/" className="text-orange-600 font-semibold underline">log-in</Link>
                     </label>
                 </div>
