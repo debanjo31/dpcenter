@@ -77,7 +77,7 @@ const authProvider: AuthBindings = {
       if (data) {
         return {
           success: true,
-          // redirectTo: "/",
+          redirectTo: "/",
         };
       }
     } catch (error: any) {

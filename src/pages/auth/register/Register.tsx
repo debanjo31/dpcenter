@@ -13,17 +13,30 @@ type registerSchema = z.infer<typeof registerSchema>;
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
-    // const { mutate: register } = useRegister();
-    const {
-        refineCore: { onFinish, formLoading, queryResult },
+    const { mutate: register } = useRegister();
+
+    const { refineCore: { onFinish, formLoading },
         register: collect, handleSubmit, resetField,formState: { errors },
     } = useForm<registerSchema>({ resolver: zodResolver(registerSchema), });
 
-    const onSubmit = (data: (registerSchema | unknown)) => console.log(data);
+    const onSubmit = (data: any, e: React.FormEvent<HTMLFormElement>) =>{
+        e.preventDefault();
+
+         register(data,{
+            onSuccess: (data) => {
+                resetField
+                if (!data.success) {
+                    console.log("error!!! try again later");
+                }
+                console.log(data);
+            },
+        },)
+     }
 
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
             <h1 className="text-2xl font-bold text-orange-600 mb-4">DP-Center</h1>
+            {formLoading && <p>Loading...</p>}
 
             <div className="p-4 bg-white w-full sm:w-96 flex gap-4 flex-col">
                 <h3 className="text-center text-xl font-medium">Register account</h3>
@@ -94,7 +107,7 @@ const Register = () => {
                 {/* no account? signup */}
                 <div>
                     <label htmlFor="login" className="text-sm text-slate-500">
-                        have an account? <Link to="/" className="text-orange-600 font-semibold underline">log-in</Link>
+                        have an account? <Link to="/login" className="text-orange-600 font-semibold underline">log-in</Link>
                     </label>
                 </div>
             </div>
