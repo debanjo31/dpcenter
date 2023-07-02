@@ -8,6 +8,13 @@ import { object, string, date, z } from 'zod'
 import { useForm } from "@refinedev/react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+// type postSchema = z.infer<typeof postSchema>;
+type postSchema = {
+    fullname: string;
+    email: string;
+    password: string;
+}
+
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     // const { mutate: register } = useRegister();
@@ -15,13 +22,29 @@ const Register = () => {
     // const [email, setEmail] = useState("")
     // const [password, setPassword] = useState("")
     // const [checkbox, setCheckbox] = useState(false)
+    const postSchema = z.object({
+        fullname: z
+            .string()
+            .min(3, { message: "The username must be 4 characters or more" })
+            .max(10, { message: "The username must be 10 characters or less" }),
+        email: z.string()
+            .email().trim().max(15).min(5).toLowerCase(),
+        password: z
+            .string()
+            .min(6, { message: "Password must be atleast 6 characters" }),
+    });
+
     const {
         refineCore: { onFinish, formLoading, queryResult },
         register: collect,
         handleSubmit,
         resetField,
         formState: { errors },
-    } = useForm();
+    } = useForm<postSchema>(
+        {
+            resolver: zodResolver(postSchema),
+        }
+    );
 
     const submitRegister = (e: any) => {
         e.preventDefault();
@@ -49,19 +72,19 @@ const Register = () => {
 
 
     const handleRegistration = (data: any) => {
-        const postSchema = z.object({
-            name: z
-                .string()
-                .min(3, { message: "The username must be 4 characters or more" })
-                .max(10, { message: "The username must be 10 characters or less" }),
-            email: z.string()
-                .email().trim().max(150).min(5).toLowerCase(),
-        });
+        // const postSchema = z.object({
+        //     name: z
+        //         .string()
+        //         .min(3, { message: "The username must be 4 characters or more" })
+        //         .max(10, { message: "The username must be 10 characters or less" }),
+        //     email: z.string()
+        //         .email().trim().max(150).min(5).toLowerCase(),
+        // });
+        // const dataNow = postSchema.safeParse(data)
+        // console.log(dataNow);
         console.log(data);
-        const dataNow = postSchema.safeParse(data)
-        console.log(dataNow);
     }
-    const onErrors = (errors: any) => console.error(errors);
+    // const onErrors = (errors: any) => console.error(errors);
 
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
@@ -72,21 +95,31 @@ const Register = () => {
 
                 {/* signin form */}
                 <form action="login" method="post" className="flex flex-col gap-4"
-                    onSubmit={handleSubmit(handleRegistration, onErrors)}
+                    onSubmit={handleSubmit(handleRegistration)}
                 >
 
                     {/* email signin inputs */}
                     <div className="relative">
                         <input type="text" placeholder="Full-Name" className="border border-slate-400 w-full rounded p-2 outline-orange-400"
-                            {...collect("fullname", { required:true, maxLength:10})} />
+                            {...collect("fullname")} />
                         <BsFillPersonFill className="text-slate-500 absolute top-3 right-2 text-xl" />
-                        {errors.fullname && <span>This field is required</span>}
+                        {errors.fullname && (
+                            <p className="text-xs italic text-red-500 mt-2">
+                                {errors.fullname?.message}
+                            </p>
+                        )}
 
                     </div>
                     <div className="relative">
                         <input type="email" placeholder="Email" className="border border-slate-400 w-full rounded p-2 outline-orange-400"
                             {...collect("email")} />
                         <MdEmail className="text-slate-500 absolute top-3 right-2 text-xl" />
+
+                        {errors.email && (
+                            <p className="text-xs italic text-red-500 mt-2">
+                                {errors.email?.message}
+                            </p>
+                        )}
                     </div>
                     <div className="relative">
                         <input type={showPassword ? "text" : "password"} placeholder="Password" className="border border-slate-400 w-full rounded p-2 outline-orange-400"
