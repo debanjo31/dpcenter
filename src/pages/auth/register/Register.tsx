@@ -18,10 +18,6 @@ type postSchema = {
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     // const { mutate: register } = useRegister();
-    // const [name, setName] = useState("")
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
-    // const [checkbox, setCheckbox] = useState(false)
     const postSchema = z.object({
         fullname: z
             .string()
@@ -40,36 +36,7 @@ const Register = () => {
         handleSubmit,
         resetField,
         formState: { errors },
-    } = useForm<postSchema>(
-        {
-            resolver: zodResolver(postSchema),
-        }
-    );
-
-    const submitRegister = (e: any) => {
-        e.preventDefault();
-        // try {
-        //     const dataNow = postSchema.parse(data)
-        //     console.log(dataNow);
-        // } catch (error) {
-        //     console.log(error);
-        // }
-
-        // register(
-        //     values,
-        //     {
-        //         onSuccess: (data) => {
-        //             if (!data.success) {
-        //                 // handle error
-        //                 console.log("eror");  
-        //             }
-        //             console.log(data);
-        //             // handle success
-        //         },
-        //     },
-        // );
-    };
-
+    } = useForm<postSchema>({  resolver: zodResolver(postSchema), });
 
     const handleRegistration = (data: any) => {
         // const postSchema = z.object({
@@ -84,8 +51,6 @@ const Register = () => {
         // console.log(dataNow);
         console.log(data);
     }
-    // const onErrors = (errors: any) => console.error(errors);
-
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
             <h1 className="text-2xl font-bold text-orange-600 mb-4">DP-Center</h1>
@@ -160,5 +125,3 @@ const Register = () => {
 }
 
 export default Register
-
-// value={name} onChange={e => setName(e.target.value)}
