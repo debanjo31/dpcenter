@@ -1,27 +1,35 @@
-import { useForm } from "react-hook-form";
+import { useSelect } from "@refinedev/core";
+import { useForm } from "@refinedev/react-hook-form";
 
 const RegisterForm = () => {
-  const { register, handleSubmit,formState: { errors } } = useForm();
+    const {
+        refineCore: { onFinish, formLoading, queryResult },
+        register,
+        handleSubmit,
+        resetField,
+        formState: { errors },
+    } = useForm();
 
-  const handleRegistration = (data:any) => console.log(data);
+      const handleRegistration = (data:any) => console.log(data);
 
-  return (
-    <form onSubmit={handleSubmit(handleRegistration)}>
-      <div>
-        <label>Name</label>
-        <input name="name" type="text" {...register('name')} />
-        {errors?.name && <p>{errors?.name?.message}</p>}
-      </div>
-      {/* <div>
-        <label>Email</label>
-        <input type="email" name="email" {...register('email')} />
-      </div> */}
-      {/* <div>
-        <label>Password</label>
-        <input type="password" name="password" {...register('password')} />
-      </div> */}
-      <button>Submit</button>
-    </form>
-  );
+      const onErrors = (errors: any) => console.error(errors);
+
+    return (
+        <form onSubmit={handleSubmit(handleRegistration, onErrors)}>
+            <div>
+                <label>Title: </label>
+                <input {...register("title", { required: true, maxLength: 5 })} className="border" />
+                {errors.title && <span>This field is required</span>}
+            </div>
+            <div>
+                <label>Name: </label>
+                <input {...register("name", { required: true })} className="border" />
+                {errors.title && <span>This field is required</span>}
+            </div>
+
+            {formLoading && <p>Loading</p>}
+            <button className="border">Submit</button>
+        </form>
+    );
 };
 export default RegisterForm;
