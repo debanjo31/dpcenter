@@ -4,40 +4,22 @@ import { MdPassword, MdEmail } from "react-icons/md"
 import { FcGoogle } from "react-icons/fc"
 import { Link } from "react-router-dom"
 import { useRegister } from "@refinedev/core";
-import { z } from 'zod'
 import { useForm } from "@refinedev/react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema } from "../../../utility/schema"
+import { z } from 'zod'
 
-
-const postSchema = z.object({
-    fullname: z
-        .string()
-        .min(3, { message: "The username must be 4 characters or more" })
-        .max(10, { message: "The username must be 10 characters or less" }),
-    email: z.string()
-        .email().trim().max(15).min(5).toLowerCase(),
-    password: z
-        .string()
-        .min(6, { message: "Password must be atleast 6 characters" }),
-    terms: z
-        .literal(true, {
-            errorMap: () => ({ message: "Accept our Terms and Conditions" }),
-        }),
-});
-type postSchema = z.infer<typeof postSchema>;
+type registerSchema = z.infer<typeof registerSchema>;
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     // const { mutate: register } = useRegister();
     const {
         refineCore: { onFinish, formLoading, queryResult },
-        register: collect,
-        handleSubmit,
-        resetField,
-        formState: { errors },
-    } = useForm<postSchema>({ resolver: zodResolver(postSchema), });
+        register: collect, handleSubmit, resetField,formState: { errors },
+    } = useForm<registerSchema>({ resolver: zodResolver(registerSchema), });
 
-    const onSubmit = (data: (postSchema | unknown)) => console.log(data);
+    const onSubmit = (data: (registerSchema | unknown)) => console.log(data);
 
     return (
         <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
