@@ -3,9 +3,9 @@ import { BsFillPersonFill } from "react-icons/bs"
 import { MdPassword,MdEmail } from "react-icons/md"
 import { FcGoogle } from "react-icons/fc"
 import { Link } from "react-router-dom"
-import { useLogin } from "@refinedev/core";
 import { useRegister } from "@refinedev/core";
 import { object, string, date,z } from 'zod'
+import { useForm } from "@refinedev/react-hook-form";
 
 const Register = () => {
     const { mutate: register } = useRegister();
@@ -15,6 +15,13 @@ const Register = () => {
     const [password, setPassword] = useState("")
     const [checkbox, setCheckbox] = useState(false)
     const { mutate: login } = useLogin()
+    const {
+        refineCore: { onFinish, formLoading, queryResult },
+        register,
+        handleSubmit,
+        resetField,
+        formState: { errors },
+    } = useForm();
     
     const submitRegister = (e: any) => {
         e.preventDefault();
