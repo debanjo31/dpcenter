@@ -15,7 +15,7 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false)
     const { mutate: register } = useRegister();
 
-    const { refineCore: { onFinish, formLoading },
+    const { refineCore: { formLoading },
         register: collect, handleSubmit, resetField,formState: { errors },
     } = useForm<registerSchema>({ resolver: zodResolver(registerSchema), });
 
