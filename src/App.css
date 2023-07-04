@@ -4,4 +4,7 @@
 
 .homepage-overlay {
   background: url("./asset/banner.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
