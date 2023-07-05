@@ -8,6 +8,9 @@ import "./App.css";
 import authProvider from "./authProvider";
 import { supabaseClient } from "./utility";
 import Homepage from "./pages/homepage/Homepage";
+import Login from "./pages/auth/login/Login";
+import Register from "./pages/auth/register/Register";
+import Signup from "./pages/auth/register/Signup";
 
 function App() {
   return (
@@ -19,12 +22,15 @@ function App() {
           authProvider={authProvider}
           routerProvider={routerBindings}>
           <Routes>
-            <Route path="/" element={<Homepage/>}/>
+            <Route path="/" element={<Homepage/>}/> 
+            <Route path="/login" element={<Login/>}/> 
+            <Route path="/register" element={<Register/>}/> 
+            <Route path="/signup" element={<Signup/>}/> 
           </Routes>
 
-          <RefineKbar />
-          <UnsavedChangesNotifier />
-          <DocumentTitleHandler />
+          {/* <RefineKbar /> */}
+          {/* <UnsavedChangesNotifier /> */}
+          {/* <DocumentTitleHandler /> */}
         </Refine>
       </RefineKbarProvider>
     </BrowserRouter>
