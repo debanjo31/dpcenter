@@ -6,7 +6,10 @@ import {
   FaEdit,
   FaRegPaperPlane,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <div className="">
       {/* NAVBAR */}
@@ -33,7 +36,12 @@ const Homepage = () => {
           </p>
           <div className="font-bold flex flex-col md:flex-row md:justify-center mt-4 gap-2 md:gap-8 pb-16">
             <button className="bg-blue-500 py-2 md:p-4">View Demo</button>
-            <button className=" py-2 bg-yellow-800 md:p-4">Get Started</button>
+            <button
+              className="py-2 bg-orange-600 md:p-4"
+              onClick={() => navigate("/login")}
+            >
+              Get Started
+            </button>
           </div>
         </div>
       </div>
@@ -94,7 +102,10 @@ const Homepage = () => {
             Ready to get started? Sign up now!
           </p>
           <div className="flex justify-center">
-            <button className=" p-2 bg-yellow-600 rounded text-lg text-white font-bold mt-4">
+            <button
+              onClick={() => navigate("/register")}
+              className=" p-2 bg-orange-600 rounded text-lg text-white font-bold mt-4"
+            >
               Signup
             </button>
           </div>
