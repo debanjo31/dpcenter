@@ -1,3 +1,4 @@
+import { useState } from "react";
 import logo from "../../asset/getdp.png";
 import {
   FaBars,
@@ -10,22 +11,52 @@ import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const [tabOpen, settabOpen] = useState(false);
   return (
     <div className="">
       {/* NAVBAR */}
-      <div className="navbar fixed top-0 left-0 bg-white w-full  p-4 h-16">
-        <div className="md:w-4/6 mx-auto flex justify-between">
-          <div className="logo">
+      <div className="navbar shadow-md fixed top-0 left-0 bg-white w-full">
+        <div className="md:w-5/6 mx-auto p-4  md:pt-4 flex justify-between">
+          <div className="logo md:pt-2">
             <img className="h-6" src={logo} alt="logo" />
           </div>
-          <div className="link-route">
-            <FaBars className="text-blue-500" />
+          <div className="md:hidden link-route">
+            <FaBars
+              className="text-blue-500 cursor-pointer"
+              onClick={() => settabOpen(!tabOpen)}
+            />
+          </div>
+          <div className="hidden md:flex gap-2 font-bold">
+            <button>Create DP</button>
+            <button>My DP</button>
+          </div>
+          <div className="hidden md:block">
+            <button
+              className="p-2  bg-green-600 text-white font-bold"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
           </div>
         </div>
+        {tabOpen && (
+          <div className="md:w-5/6 mx-auto px-4 pb-2">
+            <div className="flex flex-col gap-2">
+              <p>Create DP Banner</p>
+              <p>My DP Banners</p>
+              <button
+                className="inline-block w-24 p-1 bg-green-600 text-white font-bold"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* HOMEPAGE OVERLAY */}
-      <div className="homepage-overlay text-white mt-16">
+      <div className="homepage-overlay text-white mt-14">
         <div className="w-5/6 text-center mx-auto">
           <p className=" text-2xl md:text-4xl lg:text-5xl font-bold pt-16 mb-4 md:pt-24 ">
             Get people connected to your brand
@@ -96,7 +127,7 @@ const Homepage = () => {
         </div>
       </div>
       {/* CTA BUTTON */}
-      <div className="homepage-overlay pt-12 pb-12">
+      <div className="signup-overlay pt-12 pb-12">
         <div className="w-5/6 mx-auto text-white text-center">
           <p className="text-3xl font-bold">
             Ready to get started? Sign up now!

@@ -8,3 +8,10 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.signup-overlay {
+  background: url("./asset/banner2.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
