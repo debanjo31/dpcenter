@@ -23,8 +23,8 @@ const Login = () => {
     formState: { errors },
   } = useForm<loginSchema>({ resolver: zodResolver(loginSchema) });
 
-  const onSubmit = (data: any, e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (data: any) => {
+    // e.preventDefault();
 
     login(data, {
       onSuccess: (data) => {
