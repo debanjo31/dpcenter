@@ -21,7 +21,7 @@ import Homepage from "./pages/homepage/Homepage";
 import Login from "./pages/auth/login/Login";
 import Register from "./pages/auth/login/register/Register";
 import Signup from "./pages/auth/login/register/Signup";
-import Dashboard from "./pages/dashboard/Dashboard"
+import Dashboard from "./pages/dashboard/dashboard";
 
 function App() {
   return (
