@@ -60,11 +60,14 @@ const authProvider: AuthBindings = {
       },
     };
   },
-  register: async ({ email, password }) => {
+  register: async ({ email, password,fullname }) => {
     try {
       const { data, error } = await supabaseClient.auth.signUp({
         email,
         password,
+        options: {
+          data: {fullname}
+        }
       });
 
       if (error) {

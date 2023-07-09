@@ -76,6 +76,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+
       {/* PUBLISHING DP BANNER */}
       <div className="bg-gray-100 pb-24">
         <div className="w-5/6 mx-auto pt-16">
@@ -126,6 +127,7 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+      
       {/* CTA BUTTON */}
       <div className="signup-overlay pt-12 pb-12">
         <div className="w-5/6 mx-auto text-white text-center">

@@ -12,9 +12,8 @@ import { z } from "zod";
 type registerSchema = z.infer<typeof registerSchema>;
 
 const Register = () => {
-  // there is typescript error on the react-hook-error usage
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate: register } = useRegister();
+  const { mutate: register, } = useRegister();
 
   const {
     refineCore: { formLoading },
