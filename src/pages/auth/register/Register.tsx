@@ -6,15 +6,14 @@ import { Link } from "react-router-dom";
 import { useRegister } from "@refinedev/core";
 import { useForm } from "@refinedev/react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema } from "../../../../utility/schema";
+import { registerSchema } from "../../../utility/schema";
 import { z } from "zod";
 
 type registerSchema = z.infer<typeof registerSchema>;
 
 const Register = () => {
-  // there is typescript error on the react-hook-error usage
   const [showPassword, setShowPassword] = useState(false);
-  const { mutate: register } = useRegister();
+  const { mutate: register, } = useRegister();
 
   const {
     refineCore: { formLoading },
@@ -24,8 +23,8 @@ const Register = () => {
     formState: { errors },
   } = useForm<registerSchema>({ resolver: zodResolver(registerSchema) });
 
-  const onSubmit = (data: any, e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (data: any) => {
+    // e.preventDefault();
 
     register(data, {
       onSuccess: (data) => {
@@ -136,7 +135,7 @@ const Register = () => {
         </div>
 
         {/* no account? signup */}
-        <div className="text-center">
+        <div>
           <label htmlFor="login" className="text-sm text-slate-500">
             have an account?{" "}
             <Link
