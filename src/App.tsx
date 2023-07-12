@@ -19,7 +19,9 @@ import authProvider from "./authProvider";
 import { supabaseClient } from "./utility";
 import Homepage from "./pages/homepage/Homepage";
 import Login from "./pages/auth/login/Login";
+import Dashboard from "./pages/dashboard/dashboard";
 import Register from "./pages/auth/register/Register";
+
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/dashbaord" element={<Dashboard />} />
+
           </Routes>
 
           {/* <RefineKbar /> */}
