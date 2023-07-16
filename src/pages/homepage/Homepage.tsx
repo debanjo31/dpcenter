@@ -9,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
+import Footer from "../../components/Footer";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -108,15 +109,7 @@ const Homepage = () => {
       </div>
 
       {/* FOOTER */}
-      <div className="text-center bg-black p-8 text-white">
-        <div className="flex justify-center gap-2 font-bold pt-12">
-          <p>About</p>
-          <p>Contact</p>
-          <p>Terms of Use</p>
-          <p>Privacy Policy</p>
-        </div>
-        <p className="pb-12">&copy; DPCenter 2023.</p>
-      </div>
+      <Footer />
       {/* END OF HOMEPAGE */}
     </div>
   );

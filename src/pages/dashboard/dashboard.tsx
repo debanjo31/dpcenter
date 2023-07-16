@@ -2,6 +2,8 @@ import React from "react";
 import NavBar from "../../components/NavBar";
 import { useNavigate } from "react-router-dom";
 import CreatedDP from "./CreatedDP";
+import Footer from "../../components/Footer";
+
 function Dashboard() {
   const navigate = useNavigate();
   return (
@@ -30,6 +32,9 @@ function Dashboard() {
 
       {/* CREATED DP */}
       <CreatedDP />
+
+      {/* FOOTER */}
+      <Footer />
     </div>
   );
 }
