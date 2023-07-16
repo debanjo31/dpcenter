@@ -12,7 +12,7 @@ import NavBar from "../../components/NavBar";
 
 const Homepage = () => {
   const navigate = useNavigate();
-  const [tabOpen, settabOpen] = useState(false);
+
   return (
     <div className="">
       {/* NAVBAR */}
