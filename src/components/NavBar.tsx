@@ -6,7 +6,7 @@ function NavBar() {
   const navigate = useNavigate();
   const [tabOpen, settabOpen] = useState(false);
   return (
-    <div className="navbar shadow-md fixed top-0 left-0 bg-white w-full">
+    <div className="navbar shadow-md fixed top-0 left-0 bg-white w-full h-16">
       <div className="md:w-5/6 mx-auto p-4  md:pt-4 flex justify-between">
         <div className="logo md:pt-2">
           <img className="h-6" src={logo} alt="logo" />
