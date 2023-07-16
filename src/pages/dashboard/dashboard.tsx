@@ -22,7 +22,7 @@ function Dashboard() {
           <div className="font-bold flex flex-col md:flex-row md:justify-center mt-4 gap-2 md:gap-8 pb-16">
             <button
               className="py-2 bg-orange-600 md:p-4"
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/create")}
             >
               Create a DP
             </button>
