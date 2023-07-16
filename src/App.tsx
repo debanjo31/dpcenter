@@ -22,7 +22,6 @@ import Login from "./pages/auth/login/Login";
 import Dashboard from "./pages/dashboard/dashboard";
 import Register from "./pages/auth/register/Register";
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -37,8 +36,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/dashbaord" element={<Dashboard />} />
-
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
 
           {/* <RefineKbar /> */}
