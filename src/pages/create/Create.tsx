@@ -29,7 +29,8 @@ const Create = () => {
       <div className="mt-16 md:w-5/6 mx-auto p-2">
         <p className="pt-4 text-xl font-bold mb-8">Create a new DP Banner</p>
         <div  className="bg-white p-2 pb-8 mb-8">
-          {/* BASIC INFORMATION */} 
+          {/* BASIC INFORMATION */}
+
           {
             page === "info" && (
               <form onSubmit={()=> setpage("avatar")}>
@@ -83,3 +84,5 @@ const Create = () => {
 };
 
 export default Create;
+
+// drag and drop func
