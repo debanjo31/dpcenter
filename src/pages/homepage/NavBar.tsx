@@ -1,6 +1,6 @@
 import { FaBars } from "react-icons/fa";
 import logo from "../../asset/getdp.png";
-import { useNavigate } from "react-router-dom";
+
 
 function NavBar() {
   return (
